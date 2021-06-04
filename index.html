@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <base href="./">
-    <title>Untitled</title>
-    <meta property="og:title" content="Untitled" />
-    <meta name="twitter:title" content="Untitled" />
+    <title>Relax</title>
+    <meta property="og:title" content="Relax" />
+    <meta name="twitter:title" content="Relax" />
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <!-- Compressed Styles -->
     <link href="css/slides.min.css?521351" rel="stylesheet" type="text/css">
@@ -18,7 +18,7 @@
     <style>
         .slides { font-family: 'Inter', sans-serif; }
     </style>
-     
+    <link href="css/custom_SI49dHTM.css?p=iH6QUEhS" rel="stylesheet" type="text/css"> 
 </head>
 <body class="slides animated noPreload">
 <svg id="customSvgLibrary" xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -100,68 +100,110 @@
       <div class="wrap">
 
         <div class="fix-5-12">
-          <div class="fix-3-12 margin-bottom-5">
-            
-            <svg height="100" class="wide ae-1 fromCenter"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Layer_1"></use></svg>
+          <svg height="100" width="500" xmlns:xlink="http://www.w3.org/1999/xlink" class="ae-1 fromCenter">
+    				<text x="0" y="60" fill="white" font-family="Verdana" style="font-size:70px;" font-weight="bold">#1 放鬆練習</text>#1 放鬆練習
+					</svg>
+          <div id="thumbnail" class="videoThumbnail shadow rounded ae-4 fromCenter popupTrigger" data-popup-id="1">
+            <img src="assets/img/video-4.jpg"/>
           </div>
-          <div class="videoThumbnail shadow rounded ae-4 fromCenter popupTrigger" data-popup-id="4">
-            <img src="assets/img/video-4.jpg" alt="Video Thumbnail"/>
+          
+          <!--Progress-->
+          <!--Reference: https://stackoverflow.com/questions/37293834/how-to-check-a-user-watched-the-full-video-in-html5-video-player#comment62163190_37294640-->
+          <div id="feedback_1">
+            <text id="status" class="ae-1 fromCenter" font-family="Verdana"></text>
           </div>
+          
+          <!--Progress Bar-->
+          <div id="myProgress">
+            <div id="myBar_1">
+              <text id="percentage_1"></text>
+            </div>
+          </div>
+          
+          <div id="dialog_box">
+            <figure>
+              <blockquote>
+                  <p id="dialog"></p>
+              </blockquote>
+        		</figure>
+          </div>
+          
         </div> 
       </div>
     </div>
   </div>
-  <div class="background" style="background-image:url(assets/img/background/img-04.jpg)"></div>
+  <div class="background" style="background-image:url(assets/uploads/avenue-815297.jpg?p=iH6QUEhS)"></div>  
 </section>
 
 <!-- Popup Video -->
-<div class="popup autoplay" data-popup-id="4">
-  <div class="close"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg></div>
+<div class="popup autoplay" data-popup-id="1">
+  <div id="x" class="close"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg></div>
   <div class="content">
     <div class="container">
       <div class="wrap">
         <div class="fix-10-12">
           <div class="embedVideo popupContent shadow rounded">
-            <!--<iframe data-src="https://www.youtube.com/embed/g8yBqxTiHSs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
-            <video width="200" controls="true" poster="" id="video"><source type="video/mp4" src="http://www.w3schools.com/html/mov_bbb.mp4"></video>
+            <video width="200" controls="true" poster="" id="relax" controlsList="nodownload"><source type="video/mp4" src="assets/uploads/flowers-66823.mp4?p=iH6QUEhS"></video>
           </div>
+          
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Slide 2 (#04) -->
+<!-- Slide 1 (#04) -->
 <section class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
       <div class="wrap">
 
         <div class="fix-5-12">
-          <div class="fix-3-12 margin-bottom-5">
-            <svg height="100" class="wide ae-1 fromCenter"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#Layer_2"></use></svg>
+          <svg height="100" width="500" xmlns:xlink="http://www.w3.org/1999/xlink" class="ae-1 fromCenter">
+    				<text x="0" y="60" fill="white" font-family="Verdana" style="font-size:70px;" font-weight="bold">#2 靜坐冥想</text>#2 靜坐冥想
+					</svg>
+          <div id="cover2" class="videoThumbnail shadow rounded ae-4 fromCenter popupTrigger" data-popup-id="2">
+            <img src="assets/img/video-4.jpg"/>
           </div>
-          <div class="videoThumbnail shadow rounded ae-4 fromCenter popupTrigger" data-popup-id="4">
-            <img src="assets/img/video-4.jpg" alt="Video Thumbnail"/>
+          
+          <!--Progress-->
+          <!--Reference: https://stackoverflow.com/questions/37293834/how-to-check-a-user-watched-the-full-video-in-html5-video-player#comment62163190_37294640-->
+          <div id="feedback_2">
+            <text id="played2" class="ae-1 fromCenter" font-family="Verdana"></text>
           </div>
-        </div>
-
+          
+          <!--Progress Bar-->
+          <div id="myProgress_2">
+            <div id="myBar_2">
+              <text id="percentage_2"></text>
+            </div>
+          </div>
+          
+          <div id="quote_box2">
+            <figure>
+              <blockquote>
+                  <p id="quote2"></p>
+              </blockquote>
+        		</figure>
+          </div>
+        </div> 
       </div>
     </div>
   </div>
-  <div class="background" style="background-image:url(assets/img/background/img-04.jpg)"></div>
+  <div class="background" style="background-image:url(assets/uploads/seascape-4844697.jpg?p=iH6QUEhS)"></div>  
 </section>
 
 <!-- Popup Video -->
-<div class="popup autoplay" data-popup-id="4">
-  <div class="close"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg></div>
+<div class="popup autoplay" data-popup-id="2">
+  <div id="close2" class="close"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg></div>
   <div class="content">
     <div class="container">
       <div class="wrap">
         <div class="fix-10-12">
           <div class="embedVideo popupContent shadow rounded">
-            <iframe data-src="https://www.youtube.com/embed/g8yBqxTiHSs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <video width="200" controls="true" poster="" id="video_2" controlsList="nodownload"><source type="video/mp4" src="assets/uploads/dubrovnik-12866.mp4?p=iH6QUEhS"></video>
           </div>
+          
         </div>
       </div>
     </div>
@@ -188,7 +230,7 @@
 </nav>
 
 <!-- Share Window -->
-<div class="dropdown share bottom right" data-dropdown-id="2" data-text="Take a look at this" data-url="https://designmodo.com" data-pinterest-image="https://designmodo.com/wp-content/uploads/2015/10/Presentation.jpg">
+<div class="dropdown share bottom right" data-dropdown-id="2" data-text="Take a look at this" data-url="https://tiiyuu.github.io/relax_practice" data-pinterest-image="https://designmodo.com/wp-content/uploads/2015/10/Presentation.jpg">
   <div class="center padding-2">
     <div class="title">分享</div>
     <!--<a href="#">Contact us</a>-->
@@ -198,7 +240,7 @@
     <li class="social-twitter"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#twitter"></use></svg></li>
     <li class="social-pinterest"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#pinterest"></use></svg></li>
     <li class="social-linkedin"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#linkedin"></use></svg></li>
-    <li class="mail" data-subject="Subject" data-body="Body">透過email分享</li>
+    <li class="mail" data-subject="Subject" data-body="Body">email分享</li>
   </ul>
 </div>
 
@@ -207,6 +249,6 @@
 
     <!-- Compressed Scripts -->
     <script src="js/slides.min.js?521351" type="text/javascript"></script>
-     
+    <script src="js/custom_SI49dHTM.js?p=iH6QUEhS"></script> 
 </body>
 </html>

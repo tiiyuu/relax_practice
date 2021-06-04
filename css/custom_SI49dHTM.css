@@ -1,0 +1,75 @@
+/* Slide 04 (#1) */
+#myProgress {
+  margin-top: 10px;
+  border-radius: 25px;
+  width: 100%;
+  background-color: grey;
+}
+#percentage_1 {
+  margin: auto;
+  color: black;
+}
+#myBar_1 {
+  border-radius: 25px;
+  width: 0%;
+  height: 100%;
+  background-color: white;
+}
+#dialog_box {
+  margin-top: 15px;
+}
+#feedback_1 {
+  margin-top: 10px;
+}
+blockquote {
+    margin: 0;
+}
+blockquote p {
+    padding: 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
+blockquote p::before {
+    content: '\201C';
+}
+blockquote p::after {
+    content: '\201D';
+}
+
+/* Slide 04 (#2) */
+#myProgress_2 {
+  margin-top: 10px;
+  border-radius: 25px;
+  width: 100%;
+  background-color: grey;
+}
+#percentage_2 {
+  margin: auto;
+  color: black;
+}
+#myBar_2 {
+  border-radius: 25px;
+  width: 0%;
+  height: 100%;
+  background-color: white;
+}
+#quote_box2 {
+  margin-top: 15px;
+}
+#feedback_2 {
+  margin-top: 10px;
+}
+blockquote {
+    margin: 0;
+}
+blockquote p {
+    padding: 15px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
+blockquote p::before {
+    content: '\201C';
+}
+blockquote p::after {
+    content: '\201D';
+}
