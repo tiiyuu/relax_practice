@@ -1,2 +1,2 @@
 # 放鬆練習
-👉https://tiiyuu.github.io/test/
+👉https://tiiyuu.github.io/relax_practice
