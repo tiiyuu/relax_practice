@@ -137,6 +137,31 @@ var bravo = ["很好！",
              "做得漂亮！",
              "好極了！"
 						];
+
+/**/
+
+var player_1;
+function onYouTubeIframeAPIReady() {
+  player_1 = new YT.Player('player_1', {
+    height: '100%',
+    width: '100%',
+    videoId: 'DGAWmmXb0Z0',
+    playerVars:{
+      autoplay:1
+    },
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
+/**/
+
+
 document.getElementById("dialog_box").style.visibility = "hidden";
 // If video metadata is laoded get duration
 if(video1.readyState > 0)
