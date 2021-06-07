@@ -138,157 +138,201 @@ var bravo = ["很好！",
              "好極了！"
 						];
 
-/**/
-
+/* Youtube Player 1 */
 var player_1;
+var duration_1;
+document.getElementById("dialog_box").style.visibility = "hidden";
+
 function onYouTubeIframeAPIReady() {
-  player_1 = new YT.Player('player_1', {
-    height: '100%',
-    width: '100%',
+  player_1 = new YT.Player('relax_video', {
+    height: '390',
+    width: '640',
     videoId: 'DGAWmmXb0Z0',
-    playerVars:{
-      autoplay:1
-    },
+    playerVars: { 'autoplay': 0 },
     events: {
-      'onReady': onPlayerReady
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
     }
   });
 }
 
 function onPlayerReady(event) {
-  event.target.playVideo();
+  console.log("Ready to play");
+  // Get video duration
+  duration_1 = player_1.getDuration();
+  console.log("Video Duration: " + duration_1);
+}
+
+function updateProgressBar1(percentage) {
+  progressBar_1.style.width = percentage + "%";
+  bar_text_1.innerHTML = percentage + "%";
+}
+
+function onPlayerStateChange(event) {
+  player_status = event.data;
+
+  if (player_status == -1) { // 尚未開始
+    console.log(player_status);
+  }
+  else if (player_status === 0) { // 結束
+    console.log("End");
+    var percentage = 100;
+    updateProgressBar1(percentage);
+
+    // Show 100% feedbacks
+    var randomNumber = Math.floor(Math.random()*bravo.length);
+    document.getElementById("status").innerHTML = bravo[randomNumber];
+
+    // Show quote
+    var randomNumber = Math.floor(Math.random()*sentence.length);
+    document.getElementById("dialog").innerHTML = sentence[randomNumber];
+    document.getElementById("dialog_box").style.visibility = "visible";
+  }
+  else if (player_status == 1) {// 正在播放
+    console.log("playing");
+  }
+  else if (player_status == 2) { // 暫停
+    var timePlayed = player_1.getCurrentTime();
+    var percentage = Math.floor(timePlayed/duration_1*100);
+    updateProgressBar1(percentage);
+
+    // Show < 100% feedbacks
+    var randomNumber = Math.floor(Math.random()*encourage.length);
+    document.getElementById("status").innerHTML = encourage[randomNumber];
+    document.getElementById("dialog_box").style.visibility = "hidden";
+  }
 }
 
 /**/
 
 
-document.getElementById("dialog_box").style.visibility = "hidden";
-// If video metadata is laoded get duration
-if(video1.readyState > 0)
-  getDuration.call(video1);
-//If metadata not loaded, use event to get it
-else
-{
-  video1.addEventListener('loadedmetadata', getDuration1);
-}
-// remember time user started the video
-function videoStartedPlaying1() {
-  timeStarted = new Date().getTime()/1000;
-}
-function videoStoppedPlaying1(event) {
-  // Start time less then zero means stop event was fired vidout start event
-  if(timeStarted>0) {
-    var playedFor = new Date().getTime()/1000 - timeStarted;
-    timeStarted = 0;
-    // add the new ammount of seconds played
-    timePlayed+=playedFor;
-  }
+// document.getElementById("dialog_box").style.visibility = "hidden";
+// // If video metadata is laoded get duration
+// if(video1.readyState > 0)
+//   getDuration.call(video1);
+// //If metadata not loaded, use event to get it
+// else
+// {
+//   video1.addEventListener('loadedmetadata', getDuration1);
+// }
+// // remember time user started the video
+// function videoStartedPlaying1() {
+//   timeStarted = new Date().getTime()/1000;
+// }
+// function videoStoppedPlaying1(event) {
+//   // Start time less then zero means stop event was fired vidout start event
+//   if(timeStarted>0) {
+//     var playedFor = new Date().getTime()/1000 - timeStarted;
+//     timeStarted = 0;
+//     // add the new ammount of seconds played
+//     timePlayed+=playedFor;
+//   }
   
-  var percentage = Math.floor(timePlayed/duration*100);
-  var status = "";
-  // Count as complete only if end of video was reached
-  if(timePlayed>=duration || event.type=="ended") {
-    percentage = 100;
-    // 100%'s feedbacks
-    var randomNumber = Math.floor(Math.random()*bravo.length);
-    status += bravo[randomNumber];
+//   var percentage = Math.floor(timePlayed/duration*100);
+//   var status = "";
+//   // Count as complete only if end of video was reached
+//   if(timePlayed>=duration || event.type=="ended") {
+//     percentage = 100;
+//     // 100%'s feedbacks
+//     var randomNumber = Math.floor(Math.random()*bravo.length);
+//     status += bravo[randomNumber];
     
-    // show a great quote
-    var randomNumber = Math.floor(Math.random()*sentence.length);
-    document.getElementById("dialog").innerHTML = sentence[randomNumber];
-    document.getElementById("dialog_box").style.visibility = "visible";
-  }
-  else {
-    // not 100%'s feedbacks
-    var randomNumber = Math.floor(Math.random()*encourage.length);
-    status += encourage[randomNumber];
-  }
-  progressBar_1.style.width = percentage+"%";
-  bar_text_1.innerHTML = percentage+"%";
-  document.getElementById("status").innerHTML = status;
-}
-function getDuration1() {
-  duration = video1.duration;
-  console.log("Duration: ", duration);
-}
-document.getElementById("x").onclick = function(){
-    timePlayed = 0;
-}
-document.getElementById("thumbnail").onclick = function(){
-  	timePlayed = 0;
-    document.getElementById("status").innerHTML = "";
-  	document.getElementById("dialog_box").style.visibility = "hidden";
-}
-video1.addEventListener("play", videoStartedPlaying1);
-video1.addEventListener("playing", videoStartedPlaying1);
-video1.addEventListener("ended", videoStoppedPlaying1);
-video1.addEventListener("pause", videoStoppedPlaying1);
+//     // show a great quote
+//     var randomNumber = Math.floor(Math.random()*sentence.length);
+//     document.getElementById("dialog").innerHTML = sentence[randomNumber];
+//     document.getElementById("dialog_box").style.visibility = "visible";
+//   }
+//   else {
+//     // not 100%'s feedbacks
+//     var randomNumber = Math.floor(Math.random()*encourage.length);
+//     status += encourage[randomNumber];
+//   }
+//   progressBar_1.style.width = percentage+"%";
+//   bar_text_1.innerHTML = percentage+"%";
+//   document.getElementById("status").innerHTML = status;
+// }
+// function getDuration1() {
+//   duration = video1.duration;
+//   console.log("Duration: ", duration);
+// }
+// document.getElementById("x").onclick = function(){
+//     timePlayed = 0;
+// }
+// document.getElementById("thumbnail").onclick = function(){
+//   	timePlayed = 0;
+//     document.getElementById("status").innerHTML = "";
+//   	document.getElementById("dialog_box").style.visibility = "hidden";
+// }
+// video1.addEventListener("play", videoStartedPlaying1);
+// video1.addEventListener("playing", videoStartedPlaying1);
+// video1.addEventListener("ended", videoStoppedPlaying1);
+// video1.addEventListener("pause", videoStoppedPlaying1);
 
-/* Slide 04 (#2) */
-var video = document.getElementById("video_2");
-var progressBar_2 = document.getElementById("myBar_2");
-var bar_text_2 = document.getElementById("percentage_2");
-var timeStarted = 0;
-var timePlayed = 0;
-var duration = 0;
-document.getElementById("quote_box2").style.visibility = "hidden";
-// If video metadata is laoded get duration
-if(video.readyState > 0)
-  getDuration.call(video);
-//If metadata not loaded, use event to get it
-else
-{
-  video.addEventListener('loadedmetadata', getDuration);
-}
-// remember time user started the video
-function videoStartedPlaying() {
-  timeStarted = new Date().getTime()/1000;
-}
-function videoStoppedPlaying(event) {
-  // Start time less then zero means stop event was fired vidout start event
-  if(timeStarted>0) {
-    var playedFor = new Date().getTime()/1000 - timeStarted;
-    timeStarted = 0;
-    // add the new ammount of seconds played
-    timePlayed+=playedFor;
-  }
+// /* Slide 04 (#2) */
+// var video = document.getElementById("video_2");
+// var progressBar_2 = document.getElementById("myBar_2");
+// var bar_text_2 = document.getElementById("percentage_2");
+// var timeStarted = 0;
+// var timePlayed = 0;
+// var duration = 0;
+// document.getElementById("quote_box2").style.visibility = "hidden";
+// // If video metadata is laoded get duration
+// if(video.readyState > 0)
+//   getDuration.call(video);
+// //If metadata not loaded, use event to get it
+// else
+// {
+//   video.addEventListener('loadedmetadata', getDuration);
+// }
+// // remember time user started the video
+// function videoStartedPlaying() {
+//   timeStarted = new Date().getTime()/1000;
+// }
+// function videoStoppedPlaying(event) {
+//   // Start time less then zero means stop event was fired vidout start event
+//   if(timeStarted>0) {
+//     var playedFor = new Date().getTime()/1000 - timeStarted;
+//     timeStarted = 0;
+//     // add the new ammount of seconds played
+//     timePlayed+=playedFor;
+//   }
   
-  var percentage = Math.floor(timePlayed/duration*100);
-  var status = "";
-  // Count as complete only if end of video was reached
-  if(timePlayed>=duration || event.type=="ended") {
-    percentage = 100;
-    // 100%'s feedbacks
-    var randomNumber = Math.floor(Math.random()*bravo.length);
-    status += bravo[randomNumber];
+//   var percentage = Math.floor(timePlayed/duration*100);
+//   var status = "";
+//   // Count as complete only if end of video was reached
+//   if(timePlayed>=duration || event.type=="ended") {
+//     percentage = 100;
+//     // 100%'s feedbacks
+//     var randomNumber = Math.floor(Math.random()*bravo.length);
+//     status += bravo[randomNumber];
     
-    // show a great quote
-    var randomNumber = Math.floor(Math.random()*sentence.length);
-    document.getElementById("quote2").innerHTML = sentence[randomNumber];
-    document.getElementById("quote_box2").style.visibility = "visible";
-  }
-  else {
-    // not 100%'s feedbacks
-    var randomNumber = Math.floor(Math.random()*encourage.length);
-    status += encourage[randomNumber];
-  }
-  progressBar_2.style.width = percentage+"%";
-  bar_text_2.innerHTML = percentage+"%";
-  document.getElementById("played2").innerHTML = status;
-}
-function getDuration() {
-  duration = video.duration;
-  console.log("Duration: ", duration);
-}
-document.getElementById("close2").onclick = function(){
-    timePlayed = 0;
-}
-document.getElementById("cover2").onclick = function(){
-  	timePlayed = 0;
-    document.getElementById("played2").innerHTML = "";
-  	document.getElementById("quote_box2").style.visibility = "hidden";
-}
-video.addEventListener("play", videoStartedPlaying);
-video.addEventListener("playing", videoStartedPlaying);
-video.addEventListener("ended", videoStoppedPlaying);
-video.addEventListener("pause", videoStoppedPlaying);
+//     // show a great quote
+//     var randomNumber = Math.floor(Math.random()*sentence.length);
+//     document.getElementById("quote2").innerHTML = sentence[randomNumber];
+//     document.getElementById("quote_box2").style.visibility = "visible";
+//   }
+//   else {
+//     // not 100%'s feedbacks
+//     var randomNumber = Math.floor(Math.random()*encourage.length);
+//     status += encourage[randomNumber];
+//   }
+//   progressBar_2.style.width = percentage+"%";
+//   bar_text_2.innerHTML = percentage+"%";
+//   document.getElementById("played2").innerHTML = status;
+// }
+// function getDuration() {
+//   duration = video.duration;
+//   console.log("Duration: ", duration);
+// }
+// document.getElementById("close2").onclick = function(){
+//     timePlayed = 0;
+// }
+// document.getElementById("cover2").onclick = function(){
+//   	timePlayed = 0;
+//     document.getElementById("played2").innerHTML = "";
+//   	document.getElementById("quote_box2").style.visibility = "hidden";
+// }
+// video.addEventListener("play", videoStartedPlaying);
+// video.addEventListener("playing", videoStartedPlaying);
+// video.addEventListener("ended", videoStoppedPlaying);
+// video.addEventListener("pause", videoStoppedPlaying);
