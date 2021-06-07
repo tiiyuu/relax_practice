@@ -1,4 +1,14 @@
 /* Slide 04 (#1) */
+.center {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+#relax_video {
+  margin: auto;
+}
+
 #myProgress {
   margin-top: 10px;
   border-radius: 25px;
