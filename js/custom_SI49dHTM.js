@@ -92,6 +92,9 @@
 var video1 = document.getElementById("relax");
 var progressBar_1 = document.getElementById("myBar_1");
 var bar_text_1 = document.getElementById("percentage_1");
+var feedback = document.getElementById("status");
+var dialog_box = document.getElementById("dialog_box");
+var dialog = document.getElementById("dialog");
 var timeStarted = 0;
 var timePlayed = 0;
 var duration = 0;
@@ -141,14 +144,14 @@ var bravo = ["很好！",
 /* Youtube Player 1 */
 var player_1;
 var duration_1;
-document.getElementById("dialog_box").style.visibility = "hidden";
+dialog_box.style.visibility = "hidden";
 
 function onYouTubeIframeAPIReady() {
   player_1 = new YT.Player('relax_video', {
     height: '390',
     width: '640',
     videoId: 'DGAWmmXb0Z0',
-    playerVars: { 'autoplay': 0 },
+    playerVars: { 'autoplay': 0, 'rel': 0 },
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
@@ -163,9 +166,47 @@ function onPlayerReady(event) {
   console.log("Video Duration: " + duration_1);
 }
 
-function updateProgressBar1(percentage) {
+function updateProgressBar1() {
+  var timePlayed = player_1.getCurrentTime();
+  var percentage = (timePlayed/duration_1*100).toFixed(2);
   progressBar_1.style.width = percentage + "%";
   bar_text_1.innerHTML = percentage + "%";
+}
+
+function update100ProgressBar1() {
+  progressBar_1.style.width = 100 + "%";
+  bar_text_1.innerHTML = 100 + "%";
+}
+
+function fullFeedback() {
+  // Show 100% feedbacks
+  var randomNumber = Math.floor(Math.random()*bravo.length);
+  feedback.innerHTML = bravo[randomNumber];
+
+  // Show quote
+  var randomNumber = Math.floor(Math.random()*sentence.length);
+  dialog.innerHTML = sentence[randomNumber];
+  dialog_box.style.visibility = "visible";
+}
+
+function notFullFeedback() {
+  // Show < 100% feedbacks
+  var randomNumber = Math.floor(Math.random()*encourage.length);
+  feedback.innerHTML = encourage[randomNumber];
+  dialog_box.style.visibility = "hidden";
+}
+
+// Reference:
+// https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function loopProgerssBar() {
+  while (player_1.getPlayerState() == 1) {
+    updateProgressBar1();
+    await sleep(1000);
+  }
 }
 
 function onPlayerStateChange(event) {
@@ -176,30 +217,24 @@ function onPlayerStateChange(event) {
   }
   else if (player_status === 0) { // 結束
     console.log("End");
-    var percentage = 100;
-    updateProgressBar1(percentage);
-
-    // Show 100% feedbacks
-    var randomNumber = Math.floor(Math.random()*bravo.length);
-    document.getElementById("status").innerHTML = bravo[randomNumber];
-
-    // Show quote
-    var randomNumber = Math.floor(Math.random()*sentence.length);
-    document.getElementById("dialog").innerHTML = sentence[randomNumber];
-    document.getElementById("dialog_box").style.visibility = "visible";
+    update100ProgressBar1();
+    fullFeedback();
   }
   else if (player_status == 1) {// 正在播放
     console.log("playing");
+    dialog_box.style.visibility = "hidden";
+    updateProgressBar1();
+    loopProgerssBar();
   }
   else if (player_status == 2) { // 暫停
-    var timePlayed = player_1.getCurrentTime();
-    var percentage = Math.floor(timePlayed/duration_1*100);
-    updateProgressBar1(percentage);
-
-    // Show < 100% feedbacks
-    var randomNumber = Math.floor(Math.random()*encourage.length);
-    document.getElementById("status").innerHTML = encourage[randomNumber];
-    document.getElementById("dialog_box").style.visibility = "hidden";
+    updateProgressBar1();
+    notFullFeedback();
+  }
+  else if (player_status == 3) {
+    updateProgressBar1();
+  }
+  else if (player_status == 5) {
+    updateProgressBar1();
   }
 }
 
