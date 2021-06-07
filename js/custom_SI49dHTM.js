@@ -89,15 +89,6 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⠁
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⠟⠁
 */
-var video1 = document.getElementById("relax");
-var progressBar_1 = document.getElementById("myBar_1");
-var bar_text_1 = document.getElementById("percentage_1");
-var feedback = document.getElementById("status");
-var dialog_box = document.getElementById("dialog_box");
-var dialog = document.getElementById("dialog");
-var timeStarted = 0;
-var timePlayed = 0;
-var duration = 0;
 var sentence = ["有時候，你必須按下暫停鍵，才能讓生活中大大小小的事進入腦中，慢慢體悟。\r\n——德國賽車選手 賽巴斯蒂安．維泰爾（Sebastian Vettel）",
                 "能在工作與玩樂之間找到平衡是重要的。\r\n——美國知名廚師 巴比．福雷（Bobby Flay）",
                	"如果你想要放鬆，躺在草地看著雲朵飄過，或是坐在河邊看向遠方……。這些看似「無所事事」的事，才是真正能讓身體恢復活力的養分。\r\n——澳洲超級名模 米蘭達．寇兒（Miranda Kerr）",
@@ -111,6 +102,7 @@ var sentence = ["有時候，你必須按下暫停鍵，才能讓生活中大大
                 "休息是滋養疲乏的精神保姆。\r\n——莎士比亞（William Shakespeare）",
                 "休息與工作的關係，就如眼簾與眼睛的關係。\r\n——印度詩人 泰戈爾（Rabindranath Tagore）《飛鳥集》"
                ];
+
 var encourage = ["再接再厲！",
                  "加油，快完成了！",
                  "繼續加油！",
@@ -125,6 +117,7 @@ var encourage = ["再接再厲！",
                  "You’re on your way!",
                  "Keep it up!"
 								];
+
 var bravo = ["很好！",
              "太棒了！",
              "非常好！",
@@ -141,10 +134,23 @@ var bravo = ["很好！",
              "好極了！"
 						];
 
-/* Youtube Player 1 */
+/* Youtube Player */
 var player_1;
-var duration_1;
-dialog_box.style.visibility = "hidden";
+var progressBar_1 = document.getElementById("myBar_1");
+var bar_text_1 = document.getElementById("percentage_1");
+var feedback_1 = document.getElementById("status");
+var quote_box_1 = document.getElementById("dialog_box");
+var quote_1 = document.getElementById("dialog");
+
+var player_2;
+var progressBar_2 = document.getElementById("myBar_2");
+var bar_text_2 = document.getElementById("percentage_2");
+var feedback_2 = document.getElementById("feedback_2");
+var quote_box_2 = document.getElementById("quote_box2");
+var quote_2 = document.getElementById("quote2");
+
+quote_box_1.style.visibility = "hidden";
+quote_box_2.style.visibility = "hidden";
 
 function onYouTubeIframeAPIReady() {
   player_1 = new YT.Player('relax_video', {
@@ -153,47 +159,116 @@ function onYouTubeIframeAPIReady() {
     videoId: 'DGAWmmXb0Z0',
     playerVars: { 'autoplay': 0, 'rel': 0 },
     events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
+      'onStateChange': onPlayer1StateChange
+    }
+  });
+
+  player_2 = new YT.Player('think_video', {
+    height: '390',
+    width: '640',
+    videoId: 'cMoHLAbwsks',
+    playerVars: { 'autoplay': 0, 'rel': 0 },
+    events: {
+      'onStateChange': onPlayer2StateChange
     }
   });
 }
 
-function onPlayerReady(event) {
-  console.log("Ready to play");
-  // Get video duration
-  duration_1 = player_1.getDuration();
-  console.log("Video Duration: " + duration_1);
+function onPlayer1StateChange(event) {
+  var player_status = event.data;
+
+  if (player_status == -1) { // 尚未開始
+    // console.log("Not yet");
+    progressBar_1.style.visibility = "hidden";
+    bar_text_1.style.visibility = "hidden";
+  }
+  else if (player_status === 0) { // 結束
+    // console.log("End");
+    setProgressTo100(progressBar_1, bar_text_1);
+    fullFeedback(feedback_1, quote_box_1, quote_1);
+  }
+  else if (player_status == 1) {// 正在播放
+    // console.log("Playing");
+    player_2.pauseVideo();
+    quote_box_1.style.visibility = "hidden";
+    updateProgressBar(player_1, progressBar_1, bar_text_1);
+    loopProgerssBar(player_1);
+  }
+  else if (player_status == 2) { // 暫停
+    updateProgressBar(player_1, progressBar_1, bar_text_1);
+    notFullFeedback(feedback_1, quote_box_1, quote_1);
+  }
+  else if (player_status == 3) {
+    updateProgressBar(player_1, progressBar_1, bar_text_1);
+  }
+  else if (player_status == 5) {
+    updateProgressBar(player_1, progressBar_1, bar_text_1);
+  }
 }
 
-function updateProgressBar1() {
-  var timePlayed = player_1.getCurrentTime();
-  var percentage = (timePlayed/duration_1*100).toFixed(2);
-  progressBar_1.style.width = percentage + "%";
-  bar_text_1.innerHTML = percentage + "%";
+function onPlayer2StateChange(event) {
+  var player_status = event.data;
+
+  if (player_status == -1) { // 尚未開始
+    // console.log("Not yet");
+    progressBar_2.style.visibility = "hidden";
+    bar_text_2.style.visibility = "hidden";
+  }
+  else if (player_status === 0) { // 結束
+    // console.log("End");
+    setProgressTo100(progressBar_2, bar_text_2);
+    fullFeedback(feedback_2, quote_box_2, quote_2);
+  }
+  else if (player_status == 1) {// 正在播放
+    // console.log("Playing");
+    player_1.pauseVideo();
+    quote_box_2.style.visibility = "hidden";
+    updateProgressBar(player_2, progressBar_2, bar_text_2);
+    loopProgerssBar(player_2);
+  }
+  else if (player_status == 2) { // 暫停
+    updateProgressBar(player_2, progressBar_2, bar_text_2);
+    notFullFeedback(feedback_2, quote_box_2, quote_2);
+  }
+  else if (player_status == 3) {
+    updateProgressBar(player_2, progressBar_2, bar_text_2);
+  }
+  else if (player_status == 5) {
+    updateProgressBar(player_2, progressBar_2, bar_text_2);
+  }
 }
 
-function update100ProgressBar1() {
-  progressBar_1.style.width = 100 + "%";
-  bar_text_1.innerHTML = 100 + "%";
+function updateProgressBar(player, progress_bar, progress_value) {
+  var timePlayed = player.getCurrentTime();
+  var duration = player.getDuration();
+  // 計算播放的percentage, 取小數點後兩位
+  var percent = (timePlayed/duration*100).toFixed(2);
+  progress_bar.style.width = percent + "%";
+  progress_value.innerHTML = percent + "%";
+  progress_bar.style.visibility = "visible";
+  progress_value.style.visibility = "visible";
 }
 
-function fullFeedback() {
+function setProgressTo100(progress_bar, progress_value) {
+  progress_bar.style.width = 100 + "%";
+  progress_value.innerHTML = 100 + "%";
+}
+
+function fullFeedback(feedback, quote_box, quote) {
   // Show 100% feedbacks
   var randomNumber = Math.floor(Math.random()*bravo.length);
   feedback.innerHTML = bravo[randomNumber];
-
   // Show quote
   var randomNumber = Math.floor(Math.random()*sentence.length);
-  dialog.innerHTML = sentence[randomNumber];
-  dialog_box.style.visibility = "visible";
+  quote.innerHTML = sentence[randomNumber];
+  quote_box.style.visibility = "visible";
 }
 
-function notFullFeedback() {
+function notFullFeedback(feedback, quote_box, quote) {
   // Show < 100% feedbacks
   var randomNumber = Math.floor(Math.random()*encourage.length);
   feedback.innerHTML = encourage[randomNumber];
-  dialog_box.style.visibility = "hidden";
+  quote_box.style.visibility = "hidden";
 }
 
 // Reference:
@@ -202,172 +277,18 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function loopProgerssBar() {
-  while (player_1.getPlayerState() == 1) {
-    updateProgressBar1();
-    await sleep(1000);
+async function loopProgerssBar(player) {
+  if (player == player_1) {
+    while (player_1.getPlayerState() == 1) {
+        updateProgressBar(player_1, progressBar_1, bar_text_1);
+        await sleep(1000);
+    }
+  }
+  else if (player == player_2) {
+      while (player_2.getPlayerState() == 1) {
+        updateProgressBar(player_2, progressBar_2, bar_text_2);
+        await sleep(1000);
+    }
   }
 }
 
-function onPlayerStateChange(event) {
-  player_status = event.data;
-
-  if (player_status == -1) { // 尚未開始
-    console.log(player_status);
-  }
-  else if (player_status === 0) { // 結束
-    console.log("End");
-    update100ProgressBar1();
-    fullFeedback();
-  }
-  else if (player_status == 1) {// 正在播放
-    console.log("playing");
-    dialog_box.style.visibility = "hidden";
-    updateProgressBar1();
-    loopProgerssBar();
-  }
-  else if (player_status == 2) { // 暫停
-    updateProgressBar1();
-    notFullFeedback();
-  }
-  else if (player_status == 3) {
-    updateProgressBar1();
-  }
-  else if (player_status == 5) {
-    updateProgressBar1();
-  }
-}
-
-/**/
-
-
-// document.getElementById("dialog_box").style.visibility = "hidden";
-// // If video metadata is laoded get duration
-// if(video1.readyState > 0)
-//   getDuration.call(video1);
-// //If metadata not loaded, use event to get it
-// else
-// {
-//   video1.addEventListener('loadedmetadata', getDuration1);
-// }
-// // remember time user started the video
-// function videoStartedPlaying1() {
-//   timeStarted = new Date().getTime()/1000;
-// }
-// function videoStoppedPlaying1(event) {
-//   // Start time less then zero means stop event was fired vidout start event
-//   if(timeStarted>0) {
-//     var playedFor = new Date().getTime()/1000 - timeStarted;
-//     timeStarted = 0;
-//     // add the new ammount of seconds played
-//     timePlayed+=playedFor;
-//   }
-  
-//   var percentage = Math.floor(timePlayed/duration*100);
-//   var status = "";
-//   // Count as complete only if end of video was reached
-//   if(timePlayed>=duration || event.type=="ended") {
-//     percentage = 100;
-//     // 100%'s feedbacks
-//     var randomNumber = Math.floor(Math.random()*bravo.length);
-//     status += bravo[randomNumber];
-    
-//     // show a great quote
-//     var randomNumber = Math.floor(Math.random()*sentence.length);
-//     document.getElementById("dialog").innerHTML = sentence[randomNumber];
-//     document.getElementById("dialog_box").style.visibility = "visible";
-//   }
-//   else {
-//     // not 100%'s feedbacks
-//     var randomNumber = Math.floor(Math.random()*encourage.length);
-//     status += encourage[randomNumber];
-//   }
-//   progressBar_1.style.width = percentage+"%";
-//   bar_text_1.innerHTML = percentage+"%";
-//   document.getElementById("status").innerHTML = status;
-// }
-// function getDuration1() {
-//   duration = video1.duration;
-//   console.log("Duration: ", duration);
-// }
-// document.getElementById("x").onclick = function(){
-//     timePlayed = 0;
-// }
-// document.getElementById("thumbnail").onclick = function(){
-//   	timePlayed = 0;
-//     document.getElementById("status").innerHTML = "";
-//   	document.getElementById("dialog_box").style.visibility = "hidden";
-// }
-// video1.addEventListener("play", videoStartedPlaying1);
-// video1.addEventListener("playing", videoStartedPlaying1);
-// video1.addEventListener("ended", videoStoppedPlaying1);
-// video1.addEventListener("pause", videoStoppedPlaying1);
-
-// /* Slide 04 (#2) */
-// var video = document.getElementById("video_2");
-// var progressBar_2 = document.getElementById("myBar_2");
-// var bar_text_2 = document.getElementById("percentage_2");
-// var timeStarted = 0;
-// var timePlayed = 0;
-// var duration = 0;
-// document.getElementById("quote_box2").style.visibility = "hidden";
-// // If video metadata is laoded get duration
-// if(video.readyState > 0)
-//   getDuration.call(video);
-// //If metadata not loaded, use event to get it
-// else
-// {
-//   video.addEventListener('loadedmetadata', getDuration);
-// }
-// // remember time user started the video
-// function videoStartedPlaying() {
-//   timeStarted = new Date().getTime()/1000;
-// }
-// function videoStoppedPlaying(event) {
-//   // Start time less then zero means stop event was fired vidout start event
-//   if(timeStarted>0) {
-//     var playedFor = new Date().getTime()/1000 - timeStarted;
-//     timeStarted = 0;
-//     // add the new ammount of seconds played
-//     timePlayed+=playedFor;
-//   }
-  
-//   var percentage = Math.floor(timePlayed/duration*100);
-//   var status = "";
-//   // Count as complete only if end of video was reached
-//   if(timePlayed>=duration || event.type=="ended") {
-//     percentage = 100;
-//     // 100%'s feedbacks
-//     var randomNumber = Math.floor(Math.random()*bravo.length);
-//     status += bravo[randomNumber];
-    
-//     // show a great quote
-//     var randomNumber = Math.floor(Math.random()*sentence.length);
-//     document.getElementById("quote2").innerHTML = sentence[randomNumber];
-//     document.getElementById("quote_box2").style.visibility = "visible";
-//   }
-//   else {
-//     // not 100%'s feedbacks
-//     var randomNumber = Math.floor(Math.random()*encourage.length);
-//     status += encourage[randomNumber];
-//   }
-//   progressBar_2.style.width = percentage+"%";
-//   bar_text_2.innerHTML = percentage+"%";
-//   document.getElementById("played2").innerHTML = status;
-// }
-// function getDuration() {
-//   duration = video.duration;
-//   console.log("Duration: ", duration);
-// }
-// document.getElementById("close2").onclick = function(){
-//     timePlayed = 0;
-// }
-// document.getElementById("cover2").onclick = function(){
-//   	timePlayed = 0;
-//     document.getElementById("played2").innerHTML = "";
-//   	document.getElementById("quote_box2").style.visibility = "hidden";
-// }
-// video.addEventListener("play", videoStartedPlaying);
-// video.addEventListener("playing", videoStartedPlaying);
-// video.addEventListener("ended", videoStoppedPlaying);
-// video.addEventListener("pause", videoStoppedPlaying);
