@@ -1,3 +1,48 @@
+a.tooltip {
+  position: relative;
+  margin: auto;
+}
+
+a.tooltip span {
+  display: visible;
+  position: absolute;
+  top: -135px;
+  left: 55px;
+  width: 200px;
+  padding: 5px;
+  z-index: 100;
+  background: rgba(0,0,0,.7);
+  color: #fff;
+  
+  -moz-border-radius: 5px;
+  /* this works only in camino/firefox */
+  -webkit-border-radius: 5px;
+  /* this is just for Safari */
+}
+
+a.tooltip span:before {
+  content: '';
+  display: block;
+  width: 20;
+  height: 20;
+  position: absolute;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid rgba(0,0,0,.7);
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  left: 60px;
+  top: -30px;
+}
+
+a:hover.tooltip {
+  font-size: 99%;
+  /* this is just for IE */
+}
+
+a:hover.tooltip span {
+  display: block;
+}
+
 #tip a {
   padding-top: 60px;
 }
