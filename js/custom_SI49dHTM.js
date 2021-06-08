@@ -142,6 +142,7 @@ var feedback_1 = document.getElementById("status");
 var quote_box_1 = document.getElementById("dialog_box");
 var quote_1 = document.getElementById("dialog");
 var tooltip_1 = document.getElementById("tooltip_1");
+var scroll_down_btn_1 = document.getElementById("scroll_down_btn_1")
 
 var player_2;
 var progressBar_2 = document.getElementById("myBar_2");
@@ -150,6 +151,8 @@ var feedback_2 = document.getElementById("feedback_2");
 var quote_box_2 = document.getElementById("quote_box2");
 var quote_2 = document.getElementById("quote2");
 var tooltip_2 = document.getElementById("tooltip_2");
+var scroll_down_btn_2 = document.getElementById("scroll_down_btn_2")
+
 
 quote_box_1.style.visibility = "hidden";
 quote_box_2.style.visibility = "hidden";
@@ -189,11 +192,13 @@ function onPlayer1StateChange(event) {
     // console.log("End");
     setProgressTo100(progressBar_1, bar_text_1);
     fullFeedback(feedback_1, quote_box_1, quote_1);
+    scroll_down_btn_1.style.visibility = "hidden";
   }
   else if (player_status == 1) {// 正在播放
     // console.log("Playing");
     player_2.pauseVideo();
     quote_box_1.style.visibility = "hidden";
+    scroll_down_btn_1.style.visibility = "visible";
     updateProgressBar(player_1, progressBar_1, bar_text_1);
     loopProgerssBar(player_1);
   }
@@ -222,11 +227,13 @@ function onPlayer2StateChange(event) {
     // console.log("End");
     setProgressTo100(progressBar_2, bar_text_2);
     fullFeedback(feedback_2, quote_box_2, quote_2);
+    scroll_down_btn_2.style.visibility = "hidden";
   }
   else if (player_status == 1) {// 正在播放
     // console.log("Playing");
     player_1.pauseVideo();
     quote_box_2.style.visibility = "hidden";
+    scroll_down_btn_1.style.visibility = "visible";
     updateProgressBar(player_2, progressBar_2, bar_text_2);
     loopProgerssBar(player_2);
   }
@@ -297,11 +304,11 @@ async function loopProgerssBar(player) {
 }
 
 
-document.getElementById("scroll_down_btn_1").onclick = function() {
+scroll_down_btn_1.onclick = function() {
   player_1.pauseVideo();
 }
 
-document.getElementById("scroll_down_btn_2").onclick = function() {
+scroll_down_btn_2.onclick = function() {
   player_2.pauseVideo();
 }
 
