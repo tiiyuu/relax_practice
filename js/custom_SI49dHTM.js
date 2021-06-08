@@ -158,7 +158,7 @@ function onYouTubeIframeAPIReady() {
   player_1 = new YT.Player('relax_video', {
     height: '390',
     width: '640',
-    videoId: 'DGAWmmXb0Z0',
+    videoId: 'NNa_vSkjzno',
     playerVars: { 'autoplay': 0, 'rel': 0 },
     events: {
       'onStateChange': onPlayer1StateChange
@@ -168,7 +168,7 @@ function onYouTubeIframeAPIReady() {
   player_2 = new YT.Player('think_video', {
     height: '390',
     width: '640',
-    videoId: 'cMoHLAbwsks',
+    videoId: 'estZ3qIlOB0',
     playerVars: { 'autoplay': 0, 'rel': 0 },
     events: {
       'onStateChange': onPlayer2StateChange
