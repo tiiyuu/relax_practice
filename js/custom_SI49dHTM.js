@@ -141,6 +141,7 @@ var bar_text_1 = document.getElementById("percentage_1");
 var feedback_1 = document.getElementById("status");
 var quote_box_1 = document.getElementById("dialog_box");
 var quote_1 = document.getElementById("dialog");
+var tooltip_1 = document.getElementById("tooltip_1");
 
 var player_2;
 var progressBar_2 = document.getElementById("myBar_2");
@@ -148,6 +149,7 @@ var bar_text_2 = document.getElementById("percentage_2");
 var feedback_2 = document.getElementById("feedback_2");
 var quote_box_2 = document.getElementById("quote_box2");
 var quote_2 = document.getElementById("quote2");
+var tooltip_2 = document.getElementById("tooltip_2");
 
 quote_box_1.style.visibility = "hidden";
 quote_box_2.style.visibility = "hidden";
@@ -179,6 +181,7 @@ function onPlayer1StateChange(event) {
 
   if (player_status == -1) { // 尚未開始
     // console.log("Not yet");
+    tooltip_1.style.display = "none";
     progressBar_1.style.visibility = "hidden";
     bar_text_1.style.visibility = "hidden";
   }
@@ -211,6 +214,7 @@ function onPlayer2StateChange(event) {
 
   if (player_status == -1) { // 尚未開始
     // console.log("Not yet");
+    tooltip_2.style.display = "none";
     progressBar_2.style.visibility = "hidden";
     bar_text_2.style.visibility = "hidden";
   }
@@ -290,5 +294,14 @@ async function loopProgerssBar(player) {
         await sleep(1000);
     }
   }
+}
+
+
+document.getElementById("scroll_down_btn_1").onclick = function() {
+  player_1.pauseVideo();
+}
+
+document.getElementById("scroll_down_btn_2").onclick = function() {
+  player_2.pauseVideo();
 }
 

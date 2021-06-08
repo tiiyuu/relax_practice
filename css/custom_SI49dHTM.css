@@ -4,6 +4,7 @@ a.tooltip {
 }
 
 a.tooltip span {
+  border-style: solid;
   display: visible;
   position: absolute;
   top: -135px;
@@ -11,7 +12,7 @@ a.tooltip span {
   width: 200px;
   padding: 5px;
   z-index: 100;
-  background: rgba(0,0,0,.7);
+  background: rgba(0,0,0,.5);
   color: #fff;
   
   -moz-border-radius: 5px;
@@ -21,17 +22,18 @@ a.tooltip span {
 }
 
 a.tooltip span:before {
+  boder: none;
   content: '';
   display: block;
   width: 20;
   height: 20;
   position: absolute;
   border-top: 15px solid transparent;
-  border-bottom: 15px solid rgba(0,0,0,.7);
+  border-bottom: 15px solid rgba(0,0,0,.5);
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  left: 60px;
-  top: -30px;
+  left: 40px;
+  top: -29.5px;
 }
 
 a:hover.tooltip {
