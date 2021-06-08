@@ -50,10 +50,10 @@ a:hover.tooltip span {
 }
 #tip a span {
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 50%;
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   margin-left: -23px;
   border: 1px solid #fff;
   border-radius: 100%;
@@ -79,8 +79,8 @@ a:hover.tooltip span {
   left: 0;
   z-index: -1;
   content: '';
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   box-shadow: 0 0 0 0 rgba(255,255,255,.1);
   border-radius: 100%;
   opacity: 0;
@@ -93,10 +93,10 @@ a:hover.tooltip span {
 }
 #tip2 a span {
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 50%;
-  width: 46px;
-  height: 46px;
+  width: 40px;
+  height: 40px;
   margin-left: -23px;
   border: 1px solid #fff;
   border-radius: 100%;
@@ -122,8 +122,8 @@ a:hover.tooltip span {
   left: 0;
   z-index: -1;
   content: '';
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   box-shadow: 0 0 0 0 rgba(255,255,255,.1);
   border-radius: 100%;
   opacity: 0;
