@@ -159,9 +159,6 @@ quote_box_2.style.visibility = "hidden";
 
 function onYouTubeIframeAPIReady() {
   player_1 = new YT.Player('relax_video', {
-    height: '390',
-    width: '640',
-    videoId: 'NNa_vSkjzno',
     playerVars: { 'autoplay': 0, 'rel': 0 },
     events: {
       'onStateChange': onPlayer1StateChange
@@ -169,9 +166,6 @@ function onYouTubeIframeAPIReady() {
   });
 
   player_2 = new YT.Player('think_video', {
-    height: '390',
-    width: '640',
-    videoId: 'estZ3qIlOB0',
     playerVars: { 'autoplay': 0, 'rel': 0 },
     events: {
       'onStateChange': onPlayer2StateChange
@@ -190,6 +184,7 @@ function onPlayer1StateChange(event) {
   }
   else if (player_status === 0) { // 結束
     // console.log("End");
+    player_1.stopVideo();
     setProgressTo100(progressBar_1, bar_text_1);
     fullFeedback(feedback_1, quote_box_1, quote_1);
     scroll_down_btn_1.style.visibility = "hidden";
@@ -225,6 +220,7 @@ function onPlayer2StateChange(event) {
   }
   else if (player_status === 0) { // 結束
     // console.log("End");
+    player_2.stopVideo();
     setProgressTo100(progressBar_2, bar_text_2);
     fullFeedback(feedback_2, quote_box_2, quote_2);
     scroll_down_btn_2.style.visibility = "hidden";
