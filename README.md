@@ -2,4 +2,4 @@
 👉https://tiiyuu.github.io/relax_practice
 
 ## Preview 預覽
-(assets\readme\readme1.png)
+![readme1](assets\readme\readme1.png)
